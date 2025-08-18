@@ -22,18 +22,53 @@ A command-line time tracking application that helps you log work hours with deta
    - **macOS Intel**: `time-tracker-9000-macos-x64.tar.gz`
    - **macOS Apple Silicon**: `time-tracker-9000-macos-arm64.tar.gz`
    - **Windows**: `time-tracker-9000-windows-x64.zip`
+
+> **⚠️ macOS Users**: The binaries are unsigned, so you'll need to bypass Gatekeeper security. Follow the macOS instructions below carefully.
+
 3. Extract the archive and move the binary to your PATH:
 
-   **Linux/macOS:**
+   **Linux:**
    ```bash
    # Extract the archive
-   tar -xzf time-tracker-9000-*.tar.gz
+   tar -xzf time-tracker-9000-linux-x64.tar.gz
    
    # Move to a directory in your PATH (requires sudo)
-   sudo mv time-tracker-9000-* /usr/local/bin/timetrack
+   sudo mv time-tracker-9000-linux-x64 /usr/local/bin/timetrack
    
    # Make executable (if needed)
    sudo chmod +x /usr/local/bin/timetrack
+   ```
+
+   **macOS:**
+   ```bash
+   # Extract the archive (choose your architecture)
+   tar -xzf time-tracker-9000-macos-arm64.tar.gz  # Apple Silicon (M1/M2/M3)
+   # OR
+   tar -xzf time-tracker-9000-macos-x64.tar.gz    # Intel
+
+   # Move to a directory in your PATH
+   sudo mv time-tracker-9000-macos-* /usr/local/bin/timetrack
+   
+   # Make executable
+   sudo chmod +x /usr/local/bin/timetrack
+   
+   # IMPORTANT: Remove quarantine attribute (macOS security)
+   sudo xattr -d com.apple.quarantine /usr/local/bin/timetrack
+   
+   # If you still get security warnings, run once:
+   sudo spctl --add /usr/local/bin/timetrack
+   ```
+
+   **Alternative for macOS (if above doesn't work):**
+   ```bash
+   # Place in your home directory instead
+   mv time-tracker-9000-macos-* ~/timetrack
+   chmod +x ~/timetrack
+   xattr -d com.apple.quarantine ~/timetrack
+   
+   # Add to your shell profile (~/.zshrc or ~/.bash_profile)
+   echo 'export PATH="$HOME:$PATH"' >> ~/.zshrc
+   source ~/.zshrc
    ```
 
    **Windows:**
@@ -126,3 +161,37 @@ Sub-Category: Frontend
 
 ✅ Time entry recorded successfully!
 ```
+
+## Troubleshooting
+
+### macOS Security Issues
+
+If you encounter "zsh: killed" or security warnings on macOS:
+
+1. **Remove quarantine attribute** (most common fix):
+   ```bash
+   xattr -d com.apple.quarantine /path/to/timetrack
+   ```
+
+2. **If you get "cannot be opened because the developer cannot be verified"**:
+   - Go to **System Preferences** → **Security & Privacy** → **General**
+   - Click **"Allow Anyway"** next to the blocked app message
+   - Or use command line: `sudo spctl --add /path/to/timetrack`
+
+3. **Alternative: Run from Downloads folder first**:
+   ```bash
+   # Navigate to Downloads
+   cd ~/Downloads
+   
+   # Remove quarantine and make executable
+   xattr -d com.apple.quarantine time-tracker-9000-macos-arm64
+   chmod +x time-tracker-9000-macos-arm64
+   
+   # Test run (this may trigger security dialog)
+   ./time-tracker-9000-macos-arm64
+   
+   # After allowing in Security preferences, move to PATH
+   sudo mv time-tracker-9000-macos-arm64 /usr/local/bin/timetrack
+   ```
+
+4. **If all else fails, use the source installation** (Option 2 above) which doesn't have signing issues.
