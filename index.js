@@ -107,7 +107,20 @@ class TimeTracker {
       return new Promise((resolve, reject) => {
         createReadStream(filePath)
           .pipe(csv())
-          .on('data', (data) => entries.push(data))
+          .on('data', (data) => {
+            // Normalize property names to lowercase
+            const normalizedEntry = {
+              timestamp: data.Timestamp || data.timestamp || '',
+              hours: data.Hours || data.hours || '',
+              category: data.Category || data.category || '',
+              description: data.Description || data.description || '',
+              subCategory: data['Sub-Category'] || data.subCategory || ''
+            };
+            // Only add non-empty entries
+            if (normalizedEntry.timestamp && normalizedEntry.category && normalizedEntry.description) {
+              entries.push(normalizedEntry);
+            }
+          })
           .on('end', () => resolve(entries))
           .on('error', reject);
       });
@@ -118,6 +131,9 @@ class TimeTracker {
   }
 
   async writeToCSV(filePath, entries) {
+    console.log(`Writing ${entries.length} entries to ${filePath}`);
+    console.log('Entries to write:', JSON.stringify(entries, null, 2));
+    
     const csvWriter = createCsvWriter({
       path: filePath,
       header: [
@@ -130,6 +146,7 @@ class TimeTracker {
     });
 
     await csvWriter.writeRecords(entries);
+    console.log('CSV write completed');
   }
 
   async addEntry(entry) {
