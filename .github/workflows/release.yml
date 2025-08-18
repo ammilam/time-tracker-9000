@@ -32,10 +32,10 @@ jobs:
       run: |
         cd dist
         # Create archives for each platform
-        tar -czf time-tracker-9000-linux-x64.tar.gz time-tracker-9000-linux
-        tar -czf time-tracker-9000-macos-x64.tar.gz time-tracker-9000-macos
+        tar -czf time-tracker-9000-linux-x64.tar.gz time-tracker-9000-linux-x64
+        tar -czf time-tracker-9000-macos-x64.tar.gz time-tracker-9000-macos-x64
         tar -czf time-tracker-9000-macos-arm64.tar.gz time-tracker-9000-macos-arm64
-        zip time-tracker-9000-windows-x64.zip time-tracker-9000-win.exe
+        zip time-tracker-9000-windows-x64.zip time-tracker-9000-win-x64.exe
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
