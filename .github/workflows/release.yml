@@ -29,7 +29,7 @@ jobs:
     - name: Install ldid for macOS code signing
       run: |
         sudo apt-get update
-        sudo apt-get install -y git build-essential
+        sudo apt-get install -y git build-essential libplist-dev libplist++-dev pkg-config
         git clone https://github.com/ProcursusTeam/ldid.git
         cd ldid
         make
