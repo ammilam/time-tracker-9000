@@ -35,9 +35,6 @@ A command-line time tracking application that helps you log work hours with deta
    
    # Move to a directory in your PATH (requires sudo)
    sudo mv time-tracker-9000-linux-x64 /usr/local/bin/timetrack
-   
-   # Make executable (if needed)
-   sudo chmod +x /usr/local/bin/timetrack
    ```
 
    **macOS:**
@@ -50,8 +47,6 @@ A command-line time tracking application that helps you log work hours with deta
    # Move to a directory in your PATH
    sudo mv time-tracker-9000-macos-* /usr/local/bin/timetrack
    
-   # Make executable
-   sudo chmod +x /usr/local/bin/timetrack
    ```
 
    **Alternative for macOS (if above doesn't work):**
