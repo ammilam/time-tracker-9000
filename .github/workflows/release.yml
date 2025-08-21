@@ -26,8 +26,32 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Install ldid for macOS code signing
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git build-essential
+        git clone https://github.com/ProcursusTeam/ldid.git
+        cd ldid
+        make
+        sudo cp ldid /usr/local/bin/
+        cd ..
+        rm -rf ldid
+
     - name: Build binaries
       run: npm run build:all
+
+    - name: Sign macOS binaries
+      run: |
+        cd dist
+        # Sign macOS binaries with ad-hoc signature
+        if [ -f "time-tracker-9000-macos-x64" ]; then
+          ldid -S time-tracker-9000-macos-x64
+          echo "Signed macOS x64 binary"
+        fi
+        if [ -f "time-tracker-9000-macos-arm64" ]; then
+          ldid -S time-tracker-9000-macos-arm64
+          echo "Signed macOS ARM64 binary"
+        fi
 
     - name: Create archives
       run: |

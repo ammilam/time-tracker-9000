@@ -1,6 +1,6 @@
 # Time Tracker 9000
 
-A command-line time tracking application that helps you log work hours with detailed categorization. Available as standalone executables for Linux, macOS, and Windows - no Node.js installation required!
+A command-line time tracking application that helps you log work hours with detailed categorization. Available as standalone executables for Linux, macOS, and Windows - no Node.js installation required! macOS binaries are code-signed to prevent Gatekeeper issues.
 
 ## Features
 
@@ -9,6 +9,7 @@ A command-line time tracking application that helps you log work hours with deta
 - **Interactive Prompts**: Guides you through entering time entries
 - **Smart Updates**: Updates existing entries when category and description match
 - **Cross-Platform**: Standalone executables for Linux, macOS (Intel & ARM), and Windows
+- **Code Signed**: macOS binaries are automatically signed to prevent security warnings
 - **No Dependencies**: Pre-built binaries require no Node.js installation
 - **Global CLI**: Available from anywhere in your terminal as `timetrack`
 
@@ -23,7 +24,7 @@ A command-line time tracking application that helps you log work hours with deta
    - **macOS Apple Silicon**: `time-tracker-9000-macos-arm64.tar.gz`
    - **Windows**: `time-tracker-9000-windows-x64.zip`
 
-> **⚠️ macOS Users**: The binaries are unsigned, so you'll need to bypass Gatekeeper security. Follow the macOS instructions below carefully.
+> **✅ macOS Users**: The binaries are now code-signed and should work without security warnings. If you still encounter issues, see the troubleshooting section below.
 
 3. Extract the archive and move the binary to your PATH:
 
@@ -51,12 +52,6 @@ A command-line time tracking application that helps you log work hours with deta
    
    # Make executable
    sudo chmod +x /usr/local/bin/timetrack
-   
-   # IMPORTANT: Remove quarantine attribute (macOS security)
-   sudo xattr -d com.apple.quarantine /usr/local/bin/timetrack
-   
-   # If you still get security warnings, run once:
-   sudo spctl --add /usr/local/bin/timetrack
    ```
 
    **Alternative for macOS (if above doesn't work):**
