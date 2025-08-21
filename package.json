@@ -11,16 +11,19 @@
     "build": "pkg . --out-path dist",
     "build:all": "pkg . --targets node18-linux-x64,node18-macos-x64,node18-macos-arm64,node18-win-x64 --out-path dist"
   },
-  "keywords": ["time", "tracking", "cli", "timesheet"],
+  "keywords": [
+    "time",
+    "tracking",
+    "cli",
+    "timesheet"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "inquirer": "^8.2.6",
+    "@yao-pkg/pkg": "^6.6.0",
+    "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
-    "csv-parser": "^3.0.0"
-  },
-  "devDependencies": {
-    "pkg": "^5.8.1"
+    "inquirer": "^8.2.6"
   },
   "pkg": {
     "scripts": [
