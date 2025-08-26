@@ -21,8 +21,10 @@
   "license": "MIT",
   "dependencies": {
     "@yao-pkg/pkg": "^6.6.0",
+    "axios": "^1.6.0",
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
+    "dotenv": "^16.3.0",
     "inquirer": "^8.2.6"
   },
   "pkg": {

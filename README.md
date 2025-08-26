@@ -8,6 +8,9 @@ A command-line time tracking application that helps you log work hours with deta
 - **Daily CSV Files**: Generates CSV files named `YYYY-MM-DD.csv` for each day
 - **Interactive Prompts**: Guides you through entering time entries
 - **Smart Updates**: Updates existing entries when category and description match
+- **Time Tracking System Integration**: Upload time entries directly to your time tracking system
+- **CSV Management**: List, view, and manage your local CSV files
+- **Interactive Menu**: Easy-to-use menu system for all operations
 - **Cross-Platform**: Standalone executables for Linux, macOS (Intel & ARM), and Windows
 - **Code Signed**: macOS binaries are automatically signed to prevent security warnings
 - **No Dependencies**: Pre-built binaries require no Node.js installation
@@ -91,11 +94,64 @@ timetrack
 
 **Note**: If you downloaded the pre-built binary and placed it in your PATH as `timetrack`, the command will work immediately. If you're using the source installation with `npm link`, make sure Node.js is installed on your system.
 
-The application will prompt you for:
+### Interactive Menu
+
+The application now features an interactive menu with the following options:
+
+- **📝 Add new time entry**: Create a new time entry (original functionality)
+- **📋 List CSV files**: View all your CSV files organized by date
+- **👁️ View CSV file**: Display contents of a specific CSV file with totals
+- **☁️ Upload to time tracking system**: Upload time entries from a CSV file to your time tracking system
+- **⚙️ Time tracking system settings**: View and test your time tracking system configuration
+- **🚪 Exit**: Close the application
+
+### Adding Time Entries
+
+When adding a new time entry, you'll be prompted for:
 - **Hours**: Number of hours worked (accepts decimals like 2.5)
 - **Category**: Main category of work
 - **Description**: Detailed description of the work
 - **Sub-category**: Optional sub-category (defaults to "NA" if left empty)
+
+## Time Tracking System Integration
+
+### Setup
+
+1. **Create a `.env` file** in your project directory with your time tracking system credentials:
+
+```bash
+# Time Tracking System Configuration
+TIME_TRACKING_TOKEN=your_base64_encoded_token
+TIME_TRACKING_URL=https://your-timetracking-system.com/api/v2/
+# Optional: Default project ID for time entries
+TIME_TRACKING_PROJECT_ID=your_project_id
+```
+
+2. **Get your time tracking system token**:
+   - Log into your time tracking system instance
+   - Go to Settings → Access Tokens or similar section
+   - Create a new token with appropriate permissions
+   - The token should be base64 encoded in the format: `username:password` or `username:token`
+
+3. **Test the connection** using the "⚙️ Time tracking system settings" menu option
+
+### Uploading Time Entries
+
+1. Use the "☁️ Upload to time tracking system" menu option
+2. Select the CSV file you want to upload
+3. The application will:
+   - Test the connection to your time tracking system
+   - Upload each time entry from the CSV
+   - Show a summary of successful and failed uploads
+   - Display detailed error messages for any failures
+
+### Time Entry Format
+
+CSV entries are converted to your time tracking system format as follows:
+- **Description**: `Category: Description (Sub-Category)` 
+- **Spent**: Hours from CSV
+- **Date**: Timestamp from CSV (or current date)
+- **Project**: Uses `TIME_TRACKING_PROJECT_ID` if set
 
 ## File Structure
 
